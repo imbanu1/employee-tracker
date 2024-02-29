@@ -1,22 +1,25 @@
-const mysql = require('mysql12');
+const mysql = require('mysql2');
 
-const connection = mysql = mysql.createConnection({
+const db  = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password:'tracker',
+    password:'Chimamkpam#37',
     database: 'employee_tracker',
 
 });
+db.on("error", (err) => {
+    console.log("- STATS Mysql2 connection died:", err);
+});
 
-connection.promise = () => {
-    return new Promise((resolve, reject) => {
-        connection.connect((err) => {
-            if (err) {
-                reject(err);
-            }else{
-                resolve(connection);
-            }
-        });
-    });
-};
+// connection.promise = () => {
+//     return new Promise((resolve, reject) => {
+//         connection.connect((err) => {
+//             if (err) {
+//                 reject(err);
+//             }else{
+//                 resolve(connection);
+//             }
+//         });
+//     });
+// };
 module.exports = db;

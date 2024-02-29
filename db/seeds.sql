@@ -1,9 +1,9 @@
 USE employee_tracker
 INSERT INTO department (name) VALUES
   ('Accounting'),
-  ('Finance');
-  ('Markerting');
-  ('Sales');
+  ('Finance'),
+  ('Markerting'),
+  ('Sales'),
   ('HR');
 
 INSERT INTO role (title, salary, department_id) VALUES
