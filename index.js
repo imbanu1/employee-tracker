@@ -61,6 +61,14 @@ async function addEmployee (){
     menu()
 }
 
+async function viewDepartments (){
+    const sql = `SELECT department.name AS department
+    FROM department`
+    const department = await db.query(sql)
+    console.table(department)
+    menu()
+}
+
 async function viewRoles (){
     const sql = `SELECT role.title, role.id AS role_id, department.name AS department, role.salary
     FROM role
