@@ -22,6 +22,26 @@ else if (answer.choice === "add an employee") addEmployee();
 else if (answer.choice === "update an employee") updateEmployee();
 else quit ();
 }
+
+async function addRole (){
+    const department = await db.query ("select id as value, name as name from department")
+    const roles = await db.query ("select id as value, title as name from role")
+    const salary = await db.query("select id as value, salary as name from role")
+    const answer = await inquirer.prompt([{
+
+        type: "list", message: " what is the name of the role?", name: "title", choices: roles
+    },{
+        type: "list", message: " what is the salary for the role?", name: "salary", choices: salary
+    },{
+        type: "list", message: "what is the department for the role", name:"departmentid", choices: department
+    
+    }]) 
+    await db.query ("insert into role(title, salary, department_id) values(?,?,?)",[answer.title, answer.salary, answer.departmentid])
+    console.log("Role successfully added")
+
+    menu()
+}
+
 async function addEmployee (){
     const roles = await db.query ("select id as value, title as name from role")
     const manager = await db.query("select id as value, concat(first_name,' ', last_name) as name from employee")
