@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const db = require('./db/connection');
 const util = require('util');
+const { title } = require('process');
 db.query = util.promisify(db.query)
 
 async function menu (){
@@ -59,6 +60,18 @@ async function addEmployee (){
 
     menu()
 }
+
+async function viewRoles (){
+    const sql = `SELECT role.title, role.id AS role_id, department.name AS department, role.salary
+    FROM role
+    LEFT JOIN department
+    ON role.department_id = department.id`
+    const roles = await db.query(sql)
+    console.table(roles)
+    menu ()
+}
+
+
 async function viewemployees (){
     const sql = `SELECT employee.id, employee.first_name AS "first name", employee.last_name 
     AS "last name", role.title, department.name AS department, role.salary, 
