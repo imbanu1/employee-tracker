@@ -24,6 +24,18 @@ else if (answer.choice === "update an employee") updateEmployee();
 else quit ();
 }
 
+async function addDepartment (){
+  
+    const answer = await inquirer.prompt([{
+        type: "input", message: "Enter the name of the department?", name:"department"
+       
+    }])
+    await db.query ("insert into department(name) values (?)",[answer.department])
+    console.log("Department successfully added")
+
+    menu ()
+}
+
 async function addRole (){
     const department = await db.query ("select id as value, name as name from department")
     const roles = await db.query ("select id as value, title as name from role")
